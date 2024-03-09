@@ -9,7 +9,7 @@ edition = "2021"
 lambda-web = { version = "0.2.1", features = ["hyper"], optional = true }
 reqwest = { version = "0.11.25", features = ["rustls-tls-webpki-roots", "trust-dns"], default-features = false }
 tokio = { version = "1", features = ["full"] }
-warp = "0.3.4"
+warp = "0.3.6"
 serde = {version = "1.0", features = ["derive"] }
 
 
