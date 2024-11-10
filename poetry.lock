@@ -213,18 +213,18 @@ six = ">=1.12,<2.0"
 
 [[package]]
 name = "pulumi-alicloud"
-version = "3.50.0"
+version = "3.65.0"
 description = "A Pulumi package for creating and managing AliCloud resources."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "pulumi_alicloud-3.50.0-py3-none-any.whl", hash = "sha256:6ad423aa3a207bde4e015f2c58843d5e173b64131c70c6251f68fa7b972c6160"},
-    {file = "pulumi_alicloud-3.50.0.tar.gz", hash = "sha256:ffd9a9a71f472502b2ba95ad7e399ebf5e66e0d6719f5878650ea303eb70f576"},
+    {file = "pulumi_alicloud-3.65.0-py3-none-any.whl", hash = "sha256:a4efd893902269b014447b520b9f15784f468dd9366c3bf8cb3cf7f2d48f0851"},
+    {file = "pulumi_alicloud-3.65.0.tar.gz", hash = "sha256:7ada989f42c39d8f41ca619050e7a9209dfe0e73214065d8c21f8cb9507857a9"},
 ]
 
 [package.dependencies]
 parver = ">=0.2.1"
-pulumi = ">=3.0.0,<4.0.0"
+pulumi = ">=3.136.0,<4.0.0"
 semver = ">=2.8.1"
 
 [[package]]
