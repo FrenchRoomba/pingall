@@ -309,18 +309,18 @@ semver = ">=2.8.1"
 
 [[package]]
 name = "pulumi-gcp"
-version = "7.38.0"
+version = "8.8.0"
 description = "A Pulumi package for creating and managing Google Cloud Platform resources."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "pulumi_gcp-7.38.0-py3-none-any.whl", hash = "sha256:74af4d4365e71a0a62b19520192811ed2b47e06446af65ed969b683f1d056c75"},
-    {file = "pulumi_gcp-7.38.0.tar.gz", hash = "sha256:2ffa3dde8e5009bbc932394dbf4f187cb5711bb71ffd83739f4d760c3f26be9e"},
+    {file = "pulumi_gcp-8.8.0-py3-none-any.whl", hash = "sha256:b5d635961908b3043c8e23b1894d1a3eb73c586e878c13675a3d3ca3cca2b06c"},
+    {file = "pulumi_gcp-8.8.0.tar.gz", hash = "sha256:8775c92fbe31584c6e6ef56b63e6c9de5bdea75e30b7f2bc2339edd235a4f56b"},
 ]
 
 [package.dependencies]
 parver = ">=0.2.1"
-pulumi = ">=3.0.0,<4.0.0"
+pulumi = ">=3.136.0,<4.0.0"
 semver = ">=2.8.1"
 
 [[package]]
@@ -444,4 +444,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "dc620a52b49cff159c1b63a3c8c7df7a52ec7aef1522298cea2d44059fc83e5d"
+content-hash = "ec7f962778d5d03149fe60c147f1c08681decf68d340edd8752d953049297f0b"
