@@ -1,4 +1,6 @@
 use serde::Deserialize;
+use std::net::ToSocketAddrs;
+use std::time::Duration;
 use std::{collections::HashMap, env, time::Instant};
 use warp::{
     http::{Response, StatusCode},
@@ -63,18 +65,33 @@ pub struct URLQuery {
 
 enum Error {
     ReqwestError(reqwest::Error),
+    BadTcpAddr,
+    TcpConnFailed,
 }
 
 impl warp::reject::Reject for Error {}
 
 pub async fn fetch_url(query: URLQuery) -> Result<impl Reply, Rejection> {
-    let start = Instant::now();
-    let response = reqwest::get(query.url)
-        .await
-        .map_err(|e| reject::custom(Error::ReqwestError(e)))?;
-    response.status();
-    let duration = start.elapsed();
-    Ok(format!("{:}", duration.as_millis()))
+    if query.url.starts_with("tcp://") {
+        let start = Instant::now();
+        let saddr = query.url[6..]
+            .to_socket_addrs()
+            .map_err(|e| reject::custom(Error::BadTcpAddr))?
+            .next()
+            .ok_or(reject::custom(Error::BadTcpAddr))?;
+        let mut stream = std::net::TcpStream::connect_timeout(&saddr, Duration::new(10, 0))
+            .map_err(|_| reject::custom(Error::TcpConnFailed))?;
+        let duration = start.elapsed();
+        Ok(format!("{:}", duration.as_millis()))
+    } else {
+        let start = Instant::now();
+        let response = reqwest::get(query.url)
+            .await
+            .map_err(|e| reject::custom(Error::ReqwestError(e)))?;
+        response.status();
+        let duration = start.elapsed();
+        Ok(format!("{:}", duration.as_millis()))
+    }
 }
 
 #[tokio::main]
