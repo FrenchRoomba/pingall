@@ -35,7 +35,7 @@ jobs:
           audience: "github-actions"
           export-environment-variables: true
       - name: Run pulumi preview
-        uses: pulumi/actions@v5
+        uses: pulumi/actions@v6
         with:
           command: preview
           stack-name: dev
