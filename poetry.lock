@@ -229,13 +229,13 @@ semver = ">=2.8.1"
 
 [[package]]
 name = "pulumi-alicloud-fc-url"
-version = "0.0.2"
+version = "0.0.3"
 description = "A Pulumi package for creating and managing alicloud-fc-url cloud resources."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "pulumi_alicloud_fc_url-0.0.2-py3-none-any.whl", hash = "sha256:3dda7b0af2edbaf14fdaf920b453221f08fffa2ee9e8e3e528ef9309a1c62cd3"},
-    {file = "pulumi_alicloud_fc_url-0.0.2.tar.gz", hash = "sha256:0966028555caf3f53d99779c3365841a238342ff9722b6389128f7736a96ebf2"},
+    {file = "pulumi_alicloud_fc_url-0.0.3-py3-none-any.whl", hash = "sha256:664939c121ba21b2f4fad65885854b4fab276d449eb04f6d32cfecf604fa85a2"},
+    {file = "pulumi_alicloud_fc_url-0.0.3.tar.gz", hash = "sha256:1311b2d7875ba781f454896ccf82cfbb5dc9e486fc789cd41bab656322044264"},
 ]
 
 [package.dependencies]
@@ -459,4 +459,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "dc0236af7e42070409fcd10fccff724297dae5366c2595648f3ea66600f4992e"
+content-hash = "bbbaae024f457ed1b1c68aeca991dcce42479db2061475ee77136baacc4a227b"
