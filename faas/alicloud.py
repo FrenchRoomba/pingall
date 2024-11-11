@@ -29,7 +29,7 @@ class Deployer:
             "ap-south-1",
             "ap-southeast-3",
             "us-east-1",
-            "ap-southeast-2",
+            #"ap-southeast-2",
             "ap-southeast-5",
             "ap-southeast-7",
             "eu-west-1",
