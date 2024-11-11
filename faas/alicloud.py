@@ -26,7 +26,7 @@ class Deployer:
             "ap-northeast-1",
             "ap-northeast-2",
             "eu-central-1",
-            "ap-south-1",
+            # "ap-south-1",
             "ap-southeast-3",
             "us-east-1",
             #"ap-southeast-2",

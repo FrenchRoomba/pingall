@@ -12,6 +12,11 @@ fastapi = "^0.115.0"
 uvicorn = "^0.32.0"
 aiohttp = {version = "^3.8.3", extras = ["speedups"]}
 asyncstdlib = "^3.10.5"
+google-auth = "^2.36.0"
+requests = "^2.32.3"
+boto3 = "^1.35.57"
+google-cloud-storage = "^2.18.2"
+firebase-admin = "^6.6.0"
 
 
 [tool.poetry.group.dev.dependencies]
