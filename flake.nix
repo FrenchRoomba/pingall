@@ -40,7 +40,7 @@
             cd build
             cp ${pinger}/bin/pinger ./pinger
 
-            ${pkgs.zip}/bin/zip -r $out *
+            ${pkgs.zip}/bin/zip -oX -r $out *
           '';
           adapter = pkgs.callPackage nix/aws-lambda-web-adapter.nix { aws-lambda-web-adapter-src = aws-lambda-web-adapter-src; naersk = naersk'; };
           adapter-archive = pkgs.runCommandLocal "aws-adapter-archive.zip" { } ''
@@ -49,7 +49,7 @@
             mkdir extensions
             cp ${adapter}/bin/lambda-adapter ./extensions/lambda-adapter
             cp ${aws-lambda-web-adapter-src}/layer/bootstrap ./bootstrap
-            ${pkgs.zip}/bin/zip -r $out *
+            ${pkgs.zip}/bin/zip -oX -r $out *
           '';
         };
 
@@ -60,7 +60,7 @@
             cd build
             cp ${pinger}/bin/pinger ./bootstrap
 
-            ${pkgs.zip}/bin/zip -r $out *
+            ${pkgs.zip}/bin/zip -oX -r $out *
           '';
         };
 
@@ -119,7 +119,7 @@
 
             cp ${pinger}/bin/pinger ./pinger/pinger
 
-            ${pkgs.zip}/bin/zip -r $out *
+            ${pkgs.zip}/bin/zip -oX -r $out *
           '';
         };
       };
