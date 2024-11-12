@@ -25,6 +25,7 @@
         cargo = toolchain;
         rustc = toolchain;
       };
+      deterministic-zip = pkgs.callPackage nix/zip.nix { };
     in
     rec{
       packages.x86_64-linux = {
@@ -40,7 +41,7 @@
             cd build
             cp ${pinger}/bin/pinger ./pinger
 
-            ${pkgs.zip}/bin/zip -oX -r $out *
+            ${deterministic-zip}/bin/deterministic-zip -r $out *
           '';
           adapter = pkgs.callPackage nix/aws-lambda-web-adapter.nix { aws-lambda-web-adapter-src = aws-lambda-web-adapter-src; naersk = naersk'; };
           adapter-archive = pkgs.runCommandLocal "aws-adapter-archive.zip" { } ''
@@ -49,7 +50,7 @@
             mkdir extensions
             cp ${adapter}/bin/lambda-adapter ./extensions/lambda-adapter
             cp ${aws-lambda-web-adapter-src}/layer/bootstrap ./bootstrap
-            ${pkgs.zip}/bin/zip -oX -r $out *
+            ${deterministic-zip}/bin/deterministic-zip -r $out *
           '';
         };
 
@@ -60,7 +61,7 @@
             cd build
             cp ${pinger}/bin/pinger ./bootstrap
 
-            ${pkgs.zip}/bin/zip -oX -r $out *
+            ${deterministic-zip}/bin/deterministic-zip -r $out *
           '';
         };
 
@@ -119,7 +120,7 @@
 
             cp ${pinger}/bin/pinger ./pinger/pinger
 
-            ${pkgs.zip}/bin/zip -oX -r $out *
+            ${deterministic-zip}/bin/deterministic-zip -r $out *
           '';
         };
       };
