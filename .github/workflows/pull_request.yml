@@ -20,6 +20,8 @@ jobs:
         run: uv sync --frozen
       - uses: DeterminateSystems/nix-installer-action@main
       - uses: DeterminateSystems/magic-nix-cache-action@main
+      - name: Nix build
+        run: nix build .#gcp.image .#azure.archive .#aws.archive .#aws.adapter-archive .#alicloud.archive
       - uses: "google-github-actions/auth@v2"
         with:
           project_id: ${{ secrets.GCP_PROJECT }}
