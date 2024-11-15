@@ -1,26 +1,24 @@
-[tool.poetry]
+[project]
+authors = [
+    {name = "Rhys Davies", email = "rhys@memes.nz"},
+]
+requires-python = "<4.0,>=3.11"
+dependencies = [
+    "pulumi<4.0.0,>=3.0.0",
+    "pulumi-gcp<8.9.0,>=8.8.0",
+    "pulumi-google-native<1.0.0",
+    "pulumi-azure-native<3.0.0,>=2.0.0",
+    "pulumi-docker<5.0.0,>=4.0.0",
+    "pulumi-aws<7.0.0,>=6.0.0",
+    "pulumi-containerregistry<1.0.0",
+    "pulumi-alicloud<4.0.0,>=3.0.0",
+    "pulumi-alicloud-fc-url==0.0.3",
+    "setuptools<76.0.0,>=75.0.0",
+    "pulumi-std<2.0.0,>=1.7.3",
+    "pip>=24.3.1",
+]
 name = "pingall"
 version = "0.1.0"
 description = ""
-authors = ["Rhys Davies <rhys@memes.nz>"]
 readme = "README.md"
 package-mode = false
-
-[tool.poetry.dependencies]
-python = "^3.11"
-pulumi = ">=3.0.0,<4.0.0"
-pulumi-gcp = ">=8.8.0,<8.9.0"
-pulumi-google-native = "<1.0.0"
-pulumi-azure-native = ">=2.0.0,<3.0.0"
-pulumi-docker = ">=4.0.0,<5.0.0"
-pulumi-aws = ">=6.0.0,<7.0.0"
-pulumi-containerregistry = "<1.0.0"
-pulumi-alicloud = ">=3.0.0,<4.0.0"
-pulumi-alicloud-fc-url = "0.0.3"
-setuptools = "^75.0.0"
-pulumi-std = "^1.7.3"
-
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
