@@ -1,27 +1,18 @@
-[tool.poetry]
+[project]
+authors = [{ name = "Rhys Davies", email = "rhys@memes.nz" }]
+requires-python = "<4.0,>=3.10"
+dependencies = [
+    "fastapi<1.0.0,>=0.115.0",
+    "uvicorn<1.0.0,>=0.32.0",
+    "aiohttp[speedups]<4.0.0,>=3.8.3",
+    "asyncstdlib<4.0.0,>=3.10.5",
+    "google-auth<3.0.0,>=2.36.0",
+    "requests<3.0.0,>=2.32.3",
+    "boto3<2.0.0,>=1.35.57",
+    "google-cloud-storage<3.0.0,>=2.18.2",
+    "firebase-admin<7.0.0,>=6.6.0",
+]
 name = "ping-thing"
 version = "0.1.0"
 description = ""
-authors = ["Rhys Davies <rhys@memes.nz>"]
 readme = "README.md"
-packages = [{include = "ping_thing"}]
-
-[tool.poetry.dependencies]
-python = "^3.10"
-fastapi = "^0.115.0"
-uvicorn = "^0.32.0"
-aiohttp = {version = "^3.8.3", extras = ["speedups"]}
-asyncstdlib = "^3.10.5"
-google-auth = "^2.36.0"
-requests = "^2.32.3"
-boto3 = "^1.35.57"
-google-cloud-storage = "^2.18.2"
-firebase-admin = "^6.6.0"
-
-
-[tool.poetry.group.dev.dependencies]
-black = {version = "^23.1a1", allow-prereleases = true}
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
