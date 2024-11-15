@@ -8,7 +8,6 @@ import socket
 
 
 class Deployer:
-
     apigws = []
     lambdas = []
 
@@ -179,7 +178,6 @@ class Deployer:
             deployment = aws.apigateway.Deployment(
                 f"deployment-{location}",
                 rest_api=apigw.id,
-                stage_name="test",
                 triggers={
                     "redeployment": std.sha1_output(
                         input=pulumi.Output.json_dumps(
@@ -195,6 +193,13 @@ class Deployer:
                 },
                 opts=opts,
             )
+            stage = aws.apigateway.Stage(
+                f"stage-{location}",
+                stage_name="test",
+                deployment=deployment.id,
+                rest_api=apigw.id,
+                opts=opts,
+            )
             aws.lambda_.Permission(
                 f"allowApiGateway-{location}",
                 statement_id="AllowAPIGatewayInvoke",
@@ -204,7 +209,7 @@ class Deployer:
                 source_arn=pulumi.Output.format("{0}/*/*", apigw.execution_arn),
                 opts=opts,
             )
-            url = deployment.invoke_url
+            url = stage.invoke_url
             self.apigws.append(apigw)
         else:
             url = aws.lambda_.FunctionUrl(
