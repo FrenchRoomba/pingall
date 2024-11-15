@@ -85,7 +85,7 @@ class Deployer:
             location=location,
             allow_blob_public_access=False,
             # This is used by the pulumi provider to upload code so can't disable :(
-            allow_shared_key_access=True,
+            allow_shared_key_access=False,
             minimum_tls_version=azure.storage.MinimumTlsVersion.TLS1_2,
         )
 

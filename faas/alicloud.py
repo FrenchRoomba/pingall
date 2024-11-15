@@ -47,33 +47,33 @@ class Deployer:
         #     ],
         #     fingerprints=["08745487E891C19E3078C1F2A07E452950EF36F6"],
         # )
-        self.ping_service_role = alicloud.ram.Role(
-            "ping-service-role",
-            name="ping-service-role",
-            document=calling_service_account.unique_id.apply(
-                lambda a_id: json.dumps(
-                    {
-                        "Version": "1",
-                        "Statement": [
-                            {
-                                "Action": "sts:AssumeRole",
-                                "Effect": "Allow",
-                                "Principal": {
-                                    "Federated": "acs:ram::5473371411128805:oidc-provider/Google"
-                                },
-                                "Condition": {
-                                    "StringEquals": {
-                                        "oidc:aud": "sts.aliyuncs.com",
-                                        "oidc:sub": a_id,
-                                        "oidc:iss": "accounts.google.com",
-                                    }
-                                },
-                            }
-                        ],
-                    }
-                ),
-            ),
-        )
+        # self.ping_service_role = alicloud.ram.Role(
+        #     "ping-service-role",
+        #     name="ping-service-role",
+        #     document=calling_service_account.unique_id.apply(
+        #         lambda a_id: json.dumps(
+        #             {
+        #                 "Version": "1",
+        #                 "Statement": [
+        #                     {
+        #                         "Action": "sts:AssumeRole",
+        #                         "Effect": "Allow",
+        #                         "Principal": {
+        #                             "Federated": "acs:ram::5473371411128805:oidc-provider/Google"
+        #                         },
+        #                         "Condition": {
+        #                             "StringEquals": {
+        #                                 "oidc:aud": "sts.aliyuncs.com",
+        #                                 "oidc:sub": a_id,
+        #                                 "oidc:iss": "accounts.google.com",
+        #                             }
+        #                         },
+        #                     }
+        #                 ],
+        #             }
+        #         ),
+        #     ),
+        # )
 
     def make_function(self, location):
         provider = alicloud.Provider(f"alicloud-{location}", region=location)
