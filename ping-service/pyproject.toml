@@ -8,9 +8,9 @@ dependencies = [
     "asyncstdlib<4.0.0,>=3.10.5",
     "google-auth<3.0.0,>=2.36.0",
     "requests<3.0.0,>=2.32.3",
-    "boto3<2.0.0,>=1.35.57",
     "google-cloud-storage<3.0.0,>=2.18.2",
     "firebase-admin<7.0.0,>=6.6.0",
+    "aioboto3>=13.2.0",
 ]
 name = "ping-thing"
 version = "0.1.0"

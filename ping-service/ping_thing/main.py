@@ -1,28 +1,35 @@
+import asyncio
+import json
+import os
+from typing import List
+
+import aioboto3
+import aiohttp
+import google.auth.transport._aiohttp_requests
+import google.oauth2._id_token_async
+from botocore import auth, awsrequest
+from botocore.credentials import Credentials
 from fastapi import Depends, FastAPI, HTTPException, Response, status
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer, OAuth2
-import aiohttp
-import asyncio
-import google.oauth2.id_token
-import google.auth.transport.requests
-import boto3
-from botocore import awsrequest, auth
-from botocore.credentials import Credentials
-from urllib.parse import urlparse
-from google.cloud import storage
-import os
-import json
 from fastapi.responses import StreamingResponse
-from typing import List
-from firebase_admin import auth as firebase_auth, initialize_app
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer, OAuth2
+from firebase_admin import auth as firebase_auth
+from firebase_admin import initialize_app
+from google.cloud import storage
+from pydantic import BaseModel
+
+aws = aioboto3.Session()
 
 
-def get_user_token(res: Response, credential: HTTPAuthorizationCredentials=Depends(HTTPBearer(auto_error=False))):
+def get_user_token(
+    res: Response,
+    credential: HTTPAuthorizationCredentials = Depends(HTTPBearer(auto_error=False)),
+):
     if credential is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Bearer authentication is needed",
-            headers={'WWW-Authenticate': 'Bearer realm="auth_required"'},
+            headers={"WWW-Authenticate": 'Bearer realm="auth_required"'},
         )
     try:
         decoded_token = firebase_auth.verify_id_token(credential.credentials)
@@ -30,10 +37,11 @@ def get_user_token(res: Response, credential: HTTPAuthorizationCredentials=Depen
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail=f"Invalid authentication from Firebase. {err}",
-            headers={'WWW-Authenticate': 'Bearer error="invalid_token"'},
+            headers={"WWW-Authenticate": 'Bearer error="invalid_token"'},
         )
-    res.headers['WWW-Authenticate'] = 'Bearer realm="auth_required"'
+    res.headers["WWW-Authenticate"] = 'Bearer realm="auth_required"'
     return decoded_token
+
 
 initialize_app()
 
@@ -55,8 +63,6 @@ storage_client = storage.Client()
 bucket = storage_client.bucket(os.getenv("CONFIG_BUCKET"))
 blob = bucket.blob("config.json")
 urls = json.loads(blob.download_as_text())
-
-from pydantic import BaseModel
 
 
 class LatencyResponse(BaseModel):
@@ -123,15 +129,17 @@ async def alibaba_request(
 
 
 async def pinger_streamer(url: str):
-    request = google.auth.transport.requests.Request()
-    id_token = google.oauth2.id_token.fetch_id_token(request, "pinger")
-    aws_id_token = google.oauth2.id_token.fetch_id_token(request, "sts.amazonaws.com")
-    client = boto3.client("sts")
-    sts_token = client.assume_role_with_web_identity(
-        RoleArn="arn:aws:iam::596309961293:role/ping-service-role",
-        RoleSessionName="ping-service-session",
-        WebIdentityToken=aws_id_token,
+    request = google.auth.transport._aiohttp_requests.Request()
+    id_token = await google.oauth2._id_token_async.fetch_id_token(request, "pinger")
+    aws_id_token = await google.oauth2._id_token_async.fetch_id_token(
+        request, "sts.amazonaws.com"
     )
+    async with aws.client("sts") as client:
+        sts_token = await client.assume_role_with_web_identity(
+            RoleArn="arn:aws:iam::596309961293:role/ping-service-role",
+            RoleSessionName="ping-service-session",
+            WebIdentityToken=aws_id_token,
+        )
     aws_creds = Credentials(
         access_key=sts_token["Credentials"]["AccessKeyId"],
         secret_key=sts_token["Credentials"]["SecretAccessKey"],
@@ -161,7 +169,7 @@ async def pinger_streamer(url: str):
 
 
 @app.get("/")
-async def root(url: str, user = Depends(get_user_token)):
+async def root(url: str, user=Depends(get_user_token)):
     return StreamingResponse(pinger_streamer(url), media_type="application/x-ndjson")
 
 
