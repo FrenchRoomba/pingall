@@ -1,21 +1,19 @@
 [project]
-authors = [
-    {name = "Rhys Davies", email = "rhys@memes.nz"},
-]
+authors = [{ name = "Rhys Davies", email = "rhys@memes.nz" }]
 requires-python = "<4.0,>=3.11"
 dependencies = [
-    "pulumi<4.0.0,>=3.0.0",
-    "pulumi-gcp<8.10.1,>=8.10.0",
-    "pulumi-google-native<1.0.0",
-    "pulumi-azure-native<3.0.0,>=2.0.0",
-    "pulumi-docker<5.0.0,>=4.0.0",
-    "pulumi-aws<7.0.0,>=6.0.0",
-    "pulumi-containerregistry<1.0.0",
-    "pulumi-alicloud<4.0.0,>=3.0.0",
+    "pulumi==3.144.1",
+    "pulumi-gcp==8.12.1",
+    "pulumi-google-native==0.32.0",
+    "pulumi-azure-native==2.73.0",
+    "pulumi-docker==4.5.8",
+    "pulumi-aws==6.65.0",
+    "pulumi-containerregistry==0.0.14",
+    "pulumi-alicloud==3.70.0",
     "pulumi-alicloud-fc-url==0.0.3",
-    "setuptools<76.0.0,>=75.0.0",
-    "pulumi-std<2.0.0,>=1.7.3",
-    "pip>=24.3.1",
+    "setuptools==75.6.0",
+    "pulumi-std==1.7.3",
+    "pip==24.3.1",
 ]
 name = "pingall"
 version = "0.1.0"
