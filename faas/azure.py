@@ -97,7 +97,7 @@ class Deployer:
         nix_hash = nixdeps["azure.archive"].split("/")[-1].split("-")[0]
 
         code_blob = azure.storage.Blob(
-            f"zip-{location}",
+            f"zip-{location}-{nix_hash}",
             blob_name=f"{nix_hash}.zip",
             resource_group_name=self.resource_group.name,
             account_name=code_storage_account.name,

@@ -5,7 +5,7 @@
     naersk.inputs.nixpkgs.follows = "nixpkgs";
     fenix.url = "github:nix-community/fenix";
     fenix.inputs.nixpkgs.follows = "nixpkgs";
-    aws-lambda-web-adapter-src.url = "github:awslabs/aws-lambda-web-adapter/v0.8.4";
+    aws-lambda-web-adapter-src.url = "github:awslabs/aws-lambda-web-adapter/v0.9.0";
     aws-lambda-web-adapter-src.flake = false;
   };
 
