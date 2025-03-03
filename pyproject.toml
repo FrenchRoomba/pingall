@@ -13,7 +13,7 @@ dependencies = [
     "pulumi-alicloud-fc-url==0.0.3",
     "setuptools==75.8.2",
     "pulumi-std==1.7.3",
-    "pip==24.3.1",
+    "pip==25.0.1",
 ]
 name = "pingall"
 version = "0.1.0"
