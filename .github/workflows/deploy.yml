@@ -40,6 +40,8 @@ jobs:
           oidc-provider-arn: ${{ secrets.ALIYUN_PROVIDER }}
           audience: "github-actions"
           export-environment-variables: true
+      - name: gcloud docker auth
+        run: gcloud auth configure-docker --quiet $(gcloud artifacts locations list --flatten name --format json | jq -r '[.[] + "-docker.pkg.dev"] | join(",")')
       - uses: pulumi/actions@v6
         with:
           command: up
