@@ -129,7 +129,7 @@ requires-dist = [
     { name = "pulumi-docker", specifier = "==4.6.1" },
     { name = "pulumi-gcp", specifier = "==8.20.0" },
     { name = "pulumi-google-native", specifier = "==0.32.0" },
-    { name = "pulumi-std", specifier = "==1.7.3" },
+    { name = "pulumi-std", specifier = "==2.2.0" },
     { name = "setuptools", specifier = "==75.8.2" },
 ]
 
@@ -288,14 +288,14 @@ wheels = [
 
 [[package]]
 name = "pulumi-std"
-version = "1.7.3"
+version = "2.2.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "parver" },
     { name = "pulumi" },
     { name = "semver" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/00/a8/b6031fea63b4f67d9116e8c933cb0b025f272df2c09924ac37d5551a18fe/pulumi_std-1.7.3.tar.gz", hash = "sha256:0561a03ab1a630f765a77e6c9ac5a5b592d3e77bca245f6497dbfbf42fc9bc3c", size = 23336 }
+sdist = { url = "https://files.pythonhosted.org/packages/95/f1/1623662490d001ead46064cd25475d9732a1ada974d9c5c92af11616e4c2/pulumi_std-2.2.0.tar.gz", hash = "sha256:e46759862b5068f26ff4c2252a9c9e9c720e6ea55ae58ac7b83d0bf7a9ac25bb", size = 25811 }
 
 [[package]]
 name = "pyyaml"
