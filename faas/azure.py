@@ -184,50 +184,6 @@ class Deployer:
                 self.subscription_id,
             ),
         )
-        if location == "australiaeast":
-            plan2 = azure.web.AppServicePlan(
-                f"planf{location}",
-                resource_group_name=self.resource_group.name,
-                sku=azure.web.SkuDescriptionArgs(
-                    name="FC1",
-                    tier="FlexConsumption",
-                ),
-                reserved=True,
-                location=location,
-            )
-
-            app2 = azure.web.WebApp(
-            f"pingf-{location}",
-                location=location,
-                resource_group_name=self.resource_group.name,
-                server_farm_id=plan2.id,
-                kind="functionapp,linux",
-                https_only=True,
-                identity=azure.web.ManagedServiceIdentityArgs(
-                    type=azure.web.ManagedServiceIdentityType.SYSTEM_ASSIGNED
-                ),
-                site_config=azure.web.SiteConfigArgs(
-                    app_settings=[
-                        azure.web.NameValuePairArgs(
-                            name="FUNCTIONS_EXTENSION_VERSION", value="~4"
-                        ),
-                        azure.web.NameValuePairArgs(
-                            name="FUNCTIONS_WORKER_RUNTIME", value="custom"
-                        ),
-                        azure.web.NameValuePairArgs(
-                            name="AzureWebJobsStorage__accountName",
-                            value=app_storage.name,
-                        ),
-                        azure.web.NameValuePairArgs(
-                            name="WEBSITE_RUN_FROM_PACKAGE", value=code_blob.url
-                        ),
-                    ],
-                    http20_enabled=True,
-                    ftps_state=azure.web.FtpsState.DISABLED,
-                    min_tls_version="1.3",
-                ),
-                opts=pulumi.ResourceOptions(replace_on_changes=["server_farm_id", "kind"]),
-            )
         return app.default_host_name.apply(lambda host: f"https://{host}/api/pinger")
 
     def finish(self):
