@@ -35,7 +35,7 @@ jobs:
           aws-region: ${{ vars.AWS_REGION }}
       - uses: "mozillazg/alibabacloud-oidc-auth@v1"
         with:
-          role-arn-to-assume: ${{ secrets.ALIYUN_ROLE }}
+          role-arn-to-assume: ${{ secrets.ALIYUN_DEPLOY_ROLE }}
           oidc-provider-arn: ${{ secrets.ALIYUN_PROVIDER }}
           audience: "github-actions"
           export-environment-variables: true
