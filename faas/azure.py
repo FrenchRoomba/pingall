@@ -156,6 +156,7 @@ class Deployer:
                 ],
                 http20_enabled=True,
                 ftps_state=azure.web.FtpsState.DISABLED,
+                min_tls_version="1.3",
             ),
             opts=pulumi.ResourceOptions(replace_on_changes=["server_farm_id", "kind"]),
         )
