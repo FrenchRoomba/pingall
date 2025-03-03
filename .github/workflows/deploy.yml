@@ -1,0 +1,53 @@
+name: Pulumi
+on:
+  push:
+    branches:
+      - main
+jobs:
+  update:
+    name: Update
+    runs-on: ubuntu-latest
+    environment: production
+    concurrency: production
+    permissions:
+      contents: "read"
+      id-token: "write"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup uv
+        id: setup-uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      - name: python deps
+        run: uv sync --frozen
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+      - name: Nix build
+        run: nix build .#gcp.image .#azure.archive .#aws.archive .#aws.adapter-archive .#alicloud.archive
+      - uses: "google-github-actions/auth@v2"
+        with:
+          project_id: ${{ secrets.GCP_PROJECT }}
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+      - uses: "mozillazg/alibabacloud-oidc-auth@v1"
+        with:
+          role-arn-to-assume: ${{ secrets.ALIYUN_ROLE }}
+          oidc-provider-arn: ${{ secrets.ALIYUN_PROVIDER }}
+          audience: "github-actions"
+          export-environment-variables: true
+      - uses: pulumi/actions@v6
+        with:
+          command: up
+          stack-name: dev
+        env:
+          ARM_USE_OIDC: "true"
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          PULUMI_PYTHON_CMD: "${{ github.workspace }}/.venv/bin/python"
