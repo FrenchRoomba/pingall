@@ -200,7 +200,7 @@ class Deployer:
             f"pingf-{location}",
                 location=location,
                 resource_group_name=self.resource_group.name,
-                server_farm_id=plan.id,
+                server_farm_id=plan2.id,
                 kind="functionapp,linux",
                 https_only=True,
                 identity=azure.web.ManagedServiceIdentityArgs(
