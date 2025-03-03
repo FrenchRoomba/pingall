@@ -48,7 +48,7 @@ jobs:
           stack-name: dev
         env:
           ARM_USE_OIDC: "true"
-          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_CLIENT_ID: ${{ secrets.AZURE_DEPLOY_CLIENT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
           PULUMI_PYTHON_CMD: "${{ github.workspace }}/.venv/bin/python"
