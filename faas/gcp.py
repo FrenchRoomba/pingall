@@ -43,6 +43,7 @@ class Deployer:
             context=docker_build.BuildContextArgs(
                 location=nixdeps["gcp.wrapperImageBuildDir"],
             ),
+            network=docker_build.NetworkMode.NONE,
             platforms=[docker_build.Platform.LINUX_AMD64],
             push=True,
             build_on_preview=False,
