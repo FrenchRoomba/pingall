@@ -1,6 +1,5 @@
 import pulumi
 import pulumi_alicloud as alicloud
-import pulumi_alicloud_fc_url as alicloud_fc_url
 from deps import nixdeps
 import json
 import pulumi_gcp as gcp
