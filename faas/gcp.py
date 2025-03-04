@@ -1,5 +1,5 @@
 import pulumi
-import pulumi_docker as docker
+import pulumi_docker_build as docker_build
 import pulumi_gcp as gcp
 
 from deps import nixdeps
@@ -14,9 +14,6 @@ class Deployer:
 
     def __init__(self, calling_service_account: gcp.serviceaccount.Account):
         self.calling_service_account = calling_service_account
-        # Import the program's configuration settings.
-        config = pulumi.Config()
-        self.image_name = config.get("imageName", "my-app")
 
         # Import the provider's configuration settings.
         gcp_config = pulumi.Config("gcp")
@@ -41,13 +38,17 @@ class Deployer:
             mode="STANDARD_REPOSITORY",
         )
         # Create a container image for the service.
-        image = docker.Image(
+        image = docker_build.Image(
             f"image-{location}",
-            build=docker.DockerBuildArgs(
-                context=nixdeps["gcp.wrapperImageBuildDir"],
-                platform="linux/amd64",
+            context=docker_build.BuildContextArgs(
+                location=nixdeps["gcp.wrapperImageBuildDir"],
             ),
-            image_name=f"{location}-docker.pkg.dev/{self.project}/pinger/{self.image_name}",
+            platforms=[docker_build.Platform.LINUX_AMD64],
+            push=True,
+            build_on_preview=False,
+            tags=[
+                f"{location}-docker.pkg.dev/{self.project}/pinger/pinger",
+            ],
             opts=pulumi.ResourceOptions(depends_on=[registry]),
         )
         service_account = gcp.serviceaccount.Account(
@@ -63,7 +64,7 @@ class Deployer:
                 service_account=service_account.email,
                 containers=[
                     gcp.cloudrunv2.ServiceTemplateContainerArgs(
-                        image=image.repo_digest,
+                        image=image.digest,
                         resources=gcp.cloudrunv2.ServiceTemplateContainerResourcesArgs(
                             cpu_idle=True,
                             limits=dict(

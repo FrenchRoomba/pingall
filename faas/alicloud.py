@@ -28,7 +28,7 @@ class Deployer:
             # "ap-south-1",
             "ap-southeast-3",
             "us-east-1",
-            #"ap-southeast-2",
+            # "ap-southeast-2",
             "ap-southeast-5",
             "ap-southeast-7",
             "eu-west-1",
@@ -113,16 +113,21 @@ class Deployer:
 
         trigger = alicloud.fc.V3Trigger(
             f"pinger-trigger3-{location}",
-            function_name=pulumi.Output.format("{0}${1}", function_service.name, function_.name),
+            function_name=pulumi.Output.format(
+                "{0}${1}", function_service.name, function_.name
+            ),
             trigger_type="http",
             trigger_name="httptrigger",
             qualifier="LATEST",
-            trigger_config=json.dumps({
-                "authType": "anonymous",
-                "methods": [
-                    "GET",
-                ],
-            }),
+            trigger_config=json.dumps(
+                {
+                    "authType": "anonymous",
+                    "disableURLInternet": False,
+                    "methods": [
+                        "GET",
+                    ],
+                }
+            ),
             opts=opts,
         )
 
