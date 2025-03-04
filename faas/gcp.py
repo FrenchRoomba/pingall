@@ -44,7 +44,7 @@ class Deployer:
             image_details = json.load(f)
         image = docker_build.Index(
             f"image-{location}",
-            sources=[f"{image_details['name']}{image_details['tag']}"],
+            sources=[f"{image_details['name']}:{image_details['tag']}"],
             tag=f"{location}-docker.pkg.dev/{self.project}/pinger/pinger",
         )
         service_account = gcp.serviceaccount.Account(
