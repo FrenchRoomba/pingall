@@ -6,6 +6,7 @@ import pulumi
 depNames = [
     "azure.archive",
     "gcp.image",
+    "gcp.wrapperImageBuildDir",
     "aws.archive",
     "aws.adapter-archive",
     "alicloud.archive",
@@ -34,5 +35,7 @@ drvs = (
 )
 
 nixdeps = {name: drv.strip() for name, drv in zip(depNames, drvs)}
+
+subprocess.run(f"docker load <{nixdeps['gcp.image']}", shell=True)
 
 pulumi.info("Dependencies loaded.")

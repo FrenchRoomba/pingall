@@ -25,9 +25,9 @@ jobs:
       - uses: cachix/cachix-action@v15
         with:
           name: frenchroomba
-          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
       - name: Nix build
-        run: nix build .#gcp.image .#azure.archive .#aws.archive .#aws.adapter-archive .#alicloud.archive
+        run: nix build .#gcp.image .#gcp.wrapperImageBuildDir .#azure.archive .#aws.archive .#aws.adapter-archive .#alicloud.archive
       - uses: "google-github-actions/auth@v2"
         with:
           project_id: ${{ secrets.GCP_PROJECT }}

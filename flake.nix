@@ -9,12 +9,21 @@
     aws-lambda-web-adapter-src.flake = false;
   };
 
-  outputs = { self, nixpkgs, naersk, fenix, aws-lambda-web-adapter-src, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      naersk,
+      fenix,
+      aws-lambda-web-adapter-src,
+      ...
+    }@inputs:
     let
       pkgs = (import nixpkgs) {
         system = "x86_64-linux";
       };
-      toolchain = with fenix.packages.x86_64-linux;
+      toolchain =
+        with fenix.packages.x86_64-linux;
         combine [
           minimal.rustc
           minimal.cargo
@@ -27,15 +36,25 @@
       };
       deterministic-zip = pkgs.callPackage nix/zip.nix { };
     in
-    rec{
+    rec {
       packages.x86_64-linux = {
         gcp = rec {
-          pinger = pkgs.callPackage nix/pinger.nix { cloud = "gcp"; naersk = naersk'; };
-          image = pkgs.callPackage nix/image.nix { name = "memes.nz/pinger-gcp"; inherit pinger; };
+          pinger = pkgs.callPackage nix/pinger.nix {
+            cloud = "gcp";
+            naersk = naersk';
+          };
+          image = pkgs.callPackage nix/image.nix {
+            name = "memes.nz/pinger-gcp";
+            inherit pinger;
+          };
+          wrapperImageBuildDir = pkgs.writeTextDir "Dockerfile" "FROM ${image.imageName}:${image.imageTag}";
         };
 
         aws = rec {
-          pinger = pkgs.callPackage nix/pinger.nix { cloud = "aws"; naersk = naersk'; };
+          pinger = pkgs.callPackage nix/pinger.nix {
+            cloud = "aws";
+            naersk = naersk';
+          };
           archive = pkgs.runCommandLocal "aws-pinger-archive.zip" { } ''
             mkdir build
             cd build
@@ -43,7 +62,10 @@
 
             ${deterministic-zip}/bin/deterministic-zip -r $out *
           '';
-          adapter = pkgs.callPackage nix/aws-lambda-web-adapter.nix { aws-lambda-web-adapter-src = aws-lambda-web-adapter-src; naersk = naersk'; };
+          adapter = pkgs.callPackage nix/aws-lambda-web-adapter.nix {
+            aws-lambda-web-adapter-src = aws-lambda-web-adapter-src;
+            naersk = naersk';
+          };
           adapter-archive = pkgs.runCommandLocal "aws-adapter-archive.zip" { } ''
             mkdir build
             cd build
@@ -55,7 +77,10 @@
         };
 
         alicloud = rec {
-          pinger = pkgs.callPackage nix/pinger.nix { cloud = "alicloud"; naersk = naersk'; };
+          pinger = pkgs.callPackage nix/pinger.nix {
+            cloud = "alicloud";
+            naersk = naersk';
+          };
           archive = pkgs.runCommandLocal "alicloud-pinger-archive.zip" { } ''
             mkdir build
             cd build
@@ -66,50 +91,57 @@
         };
 
         azure = rec {
-          pinger = pkgs.callPackage nix/pinger.nix { cloud = "azure"; naersk = naersk'; };
+          pinger = pkgs.callPackage nix/pinger.nix {
+            cloud = "azure";
+            naersk = naersk';
+          };
 
-          functionJson = pkgs.writeText "function.json" (builtins.toJSON {
-            bindings = [
-              {
-                authLevel = "anonymous";
-                type = "httpTrigger";
-                direction = "in";
-                name = "req";
-              }
-              {
-                type = "http";
-                direction = "out";
-                name = "res";
-              }
-            ];
-          });
+          functionJson = pkgs.writeText "function.json" (
+            builtins.toJSON {
+              bindings = [
+                {
+                  authLevel = "anonymous";
+                  type = "httpTrigger";
+                  direction = "in";
+                  name = "req";
+                }
+                {
+                  type = "http";
+                  direction = "out";
+                  name = "res";
+                }
+              ];
+            }
+          );
 
-          hostJson = pkgs.writeText "host.json" (builtins.toJSON {
-            version = "2.0";
-            logging = {
-              logLevel = {
-                default = "Trace";
-              };
-              applicationInsights = {
-                samplingSettings = {
-                  isEnabled = true;
-                  excludedTypes = "Request";
+          hostJson = pkgs.writeText "host.json" (
+            builtins.toJSON {
+              version = "2.0";
+              logging = {
+                logLevel = {
+                  default = "Trace";
+                };
+                applicationInsights = {
+                  samplingSettings = {
+                    isEnabled = true;
+                    excludedTypes = "Request";
+                  };
                 };
               };
-            };
-            extensionBundle = {
-              id = "Microsoft.Azure.Functions.ExtensionBundle";
-              version = "[4.0.0, 5.0.0)";
-            };
-            customHandler = {
-              description = {
-                defaultExecutablePath = "pinger/pinger";
-                workingDirectory = "";
-                arguments = [ ];
+              extensionBundle = {
+                id = "Microsoft.Azure.Functions.ExtensionBundle";
+                version = "[4.0.0, 5.0.0)";
               };
-              enableForwardingHttpRequest = true;
-            };
-          });
+              customHandler = {
+                description = {
+                  defaultExecutablePath = "pinger/pinger";
+                  workingDirectory = "";
+                  arguments = [ ];
+                };
+                enableForwardingHttpRequest = true;
+              };
+            }
+          );
 
           archive = pkgs.runCommandLocal "azure-pinger-archive.zip" { } ''
             mkdir build
