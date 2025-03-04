@@ -44,7 +44,7 @@
             naersk = naersk';
           };
           image = pkgs.callPackage nix/image.nix {
-            name = "memes.nz/pinger-gcp";
+            name = "pinger-gcp";
             inherit pinger;
           };
           wrapperImageBuildDir = pkgs.writeTextDir "Dockerfile" "FROM ${image.imageName}:${image.imageTag}";
