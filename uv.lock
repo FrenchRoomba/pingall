@@ -126,7 +126,7 @@ requires-dist = [
     { name = "pulumi-azure-native", specifier = "==2.73.0" },
     { name = "pulumi-containerregistry", specifier = "==0.0.14" },
     { name = "pulumi-docker", specifier = "==4.6.1" },
-    { name = "pulumi-docker-build", specifier = ">=0.0.10" },
+    { name = "pulumi-docker-build", specifier = "==0.0.10" },
     { name = "pulumi-gcp", specifier = "==8.20.0" },
     { name = "pulumi-google-native", specifier = "==0.32.0" },
     { name = "pulumi-std", specifier = "==2.2.0" },
