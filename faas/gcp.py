@@ -42,7 +42,7 @@ class Deployer:
         )
         # Create a container image for the service.
         image = docker.Image(
-            "ping-service-image",
+            f"image-{location}",
             build=docker.DockerBuildArgs(
                 context=nixdeps["gcp.wrapperImageBuildDir"],
                 platform="linux/amd64",
