@@ -47,7 +47,12 @@
             name = "memes.nz/pinger-gcp";
             inherit pinger;
           };
-          wrapperImageBuildDir = pkgs.writeTextDir "Dockerfile" "FROM ${image.imageName}:${image.imageTag}";
+          imageDetails = pkgs.writeText "image.json" (
+            builtins.toJSON {
+              name = image.imageName;
+              tag = image.imageTag;
+            }
+          );
         };
 
         aws = rec {

@@ -1,3 +1,5 @@
+import json
+
 import pulumi
 import pulumi_docker_build as docker_build
 import pulumi_gcp as gcp
@@ -38,19 +40,12 @@ class Deployer:
             mode="STANDARD_REPOSITORY",
         )
         # Create a container image for the service.
-        image = docker_build.Image(
+        with open(nixdeps["gcp.imageDetails"]) as f:
+            image_details = json.load(f)
+        image = docker_build.Index(
             f"image-{location}",
-            context=docker_build.BuildContextArgs(
-                location=nixdeps["gcp.wrapperImageBuildDir"],
-            ),
-            network=docker_build.NetworkMode.NONE,
-            platforms=[docker_build.Platform.LINUX_AMD64],
-            push=True,
-            build_on_preview=False,
-            tags=[
-                f"{location}-docker.pkg.dev/{self.project}/pinger/pinger",
-            ],
-            opts=pulumi.ResourceOptions(depends_on=[registry]),
+            sources=[f"{image_details['name']}{image_details['tag']}"],
+            tag=f"{location}-docker.pkg.dev/{self.project}/pinger/pinger",
         )
         service_account = gcp.serviceaccount.Account(
             f"ping-{location}", account_id=f"ping-{location}"
@@ -65,7 +60,7 @@ class Deployer:
                 service_account=service_account.email,
                 containers=[
                     gcp.cloudrunv2.ServiceTemplateContainerArgs(
-                        image=image.digest,
+                        image=image.ref,
                         resources=gcp.cloudrunv2.ServiceTemplateContainerResourcesArgs(
                             cpu_idle=True,
                             limits=dict(

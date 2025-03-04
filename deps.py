@@ -6,7 +6,7 @@ import pulumi
 depNames = [
     "azure.archive",
     "gcp.image",
-    "gcp.wrapperImageBuildDir",
+    "gcp.imageDetails",
     "aws.archive",
     "aws.adapter-archive",
     "alicloud.archive",
