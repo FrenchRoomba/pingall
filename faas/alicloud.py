@@ -116,22 +116,23 @@ class Deployer:
             opts=opts,
         )
 
-        trigger = alicloud.fc.V3Trigger(
-            f"pinger-trigger3-{location}",
-            function_name=pulumi.Output.format("{0}${1}", function_service.name, function_.name),
-            trigger_type="http",
-            trigger_name="httptrigger",
-            qualifier="LATEST",
-            trigger_config=json.dumps({
-                "authType": "anonymous",
-                "methods": [
-                    "GET",
-                ],
-            }),
-            opts=opts,
-        )
+        # trigger = alicloud.fc.V3Trigger(
+        #     f"pinger-trigger3-{location}",
+        #     function_name=pulumi.Output.format("{0}${1}", function_service.name, function_.name),
+        #     trigger_type="http",
+        #     trigger_name="httptrigger",
+        #     qualifier="LATEST",
+        #     trigger_config=json.dumps({
+        #         "authType": "anonymous",
+        #         "methods": [
+        #             "GET",
+        #         ],
+        #     }),
+        #     opts=opts,
+        # )
 
-        return trigger.http_trigger.url_internet
+        # return trigger.http_trigger.url_internet
+        return ""
 
     def finish(self):
         pass
