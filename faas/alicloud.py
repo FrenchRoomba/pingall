@@ -76,12 +76,8 @@ class Deployer:
 
     def make_function(self, location):
         provider = alicloud.Provider(f"alicloud-{location}", region=location)
-        provider_url = alicloud_fc_url.Provider(
-            f"alicloud-url-{location}", region=location
-        )
 
         opts = pulumi.ResourceOptions(provider=provider)
-        opts_url = pulumi.InvokeOptions(provider=provider_url)
 
         role = alicloud.ram.Role(
             f"pingerFunctionRole-{location}",
