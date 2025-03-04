@@ -106,7 +106,6 @@ dependencies = [
     { name = "pip" },
     { name = "pulumi" },
     { name = "pulumi-alicloud" },
-    { name = "pulumi-alicloud-fc-url" },
     { name = "pulumi-aws" },
     { name = "pulumi-azure-native" },
     { name = "pulumi-containerregistry" },
@@ -122,7 +121,6 @@ requires-dist = [
     { name = "pip", specifier = "==25.0.1" },
     { name = "pulumi", specifier = "==3.153.1" },
     { name = "pulumi-alicloud", specifier = "==3.74.0" },
-    { name = "pulumi-alicloud-fc-url", specifier = "==0.0.3" },
     { name = "pulumi-aws", specifier = "==6.70.0" },
     { name = "pulumi-azure-native", specifier = "==2.73.0" },
     { name = "pulumi-containerregistry", specifier = "==0.0.14" },
@@ -186,20 +184,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/f0/ef/321473a083f702e174ccaabe4a3ae37b109ebed5ce78eed2c97ea13c9d72/pulumi_alicloud-3.74.0.tar.gz", hash = "sha256:128d1448e95138076418de457f7fdfa6419d68e87c9ee2adbbf0341ac66cc256", size = 4403339 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/e0/80/68cb9f0e6234739863310c52ea8b1c878f687f7fc3ab3f898d38c12c45eb/pulumi_alicloud-3.74.0-py3-none-any.whl", hash = "sha256:ad97fca3fb574840f571ec498dbdaae997667c8770f0ad246c35209d28d0c0b5", size = 6616250 },
-]
-
-[[package]]
-name = "pulumi-alicloud-fc-url"
-version = "0.0.3"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "parver" },
-    { name = "pulumi" },
-    { name = "semver" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/4a/53/b4b6ae914a73a59e281621c7c8feb74c398f1111a80f9d03218160721c20/pulumi_alicloud_fc_url-0.0.3.tar.gz", hash = "sha256:1311b2d7875ba781f454896ccf82cfbb5dc9e486fc789cd41bab656322044264", size = 21325 }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/86/ef/da10a11d80d77dfcc0c7877619a9b547dea9ff32f6c6998ff11476e9aad1/pulumi_alicloud_fc_url-0.0.3-py3-none-any.whl", hash = "sha256:664939c121ba21b2f4fad65885854b4fab276d449eb04f6d32cfecf604fa85a2", size = 17772 },
 ]
 
 [[package]]
