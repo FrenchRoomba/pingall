@@ -11,7 +11,8 @@ class Deployer:
     @staticmethod
     def list_locations() -> list[str]:
         return filter(
-            lambda l: l != "me-central2", gcp.cloudrun.get_locations().locations
+            lambda loc: loc not in {"me-central2", "europe-north2"},
+            gcp.cloudrun.get_locations().locations,
         )
 
     def __init__(self, calling_service_account: gcp.serviceaccount.Account):
