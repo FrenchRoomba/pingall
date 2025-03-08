@@ -5,13 +5,13 @@ from faas import azure
 from faas import aws
 from faas import alicloud
 import pulumi
-import pulumi_docker as docker
+import pulumi_docker_build as docker_build
 import pulumi_gcp as pgcp
 
 results = {}
 
 service_account = pgcp.serviceaccount.Account(
-    f"ping-service-account", account_id=f"ping-service-account"
+    "ping-service-account", account_id="ping-service-account"
 )
 
 for provider in [gcp, azure, aws, alicloud]:
@@ -29,7 +29,7 @@ gcp_config = pulumi.Config("gcp")
 project = gcp_config.require("project")
 
 registry = pgcp.artifactregistry.Repository(
-    f"ping-service-docker",
+    "ping-service-docker",
     format="DOCKER",
     cleanup_policies=[
         pgcp.artifactregistry.RepositoryCleanupPolicyArgs(
@@ -58,19 +58,24 @@ data = pgcp.storage.BucketObject(
 )
 
 # Create a container image for the service.
-image = docker.Image(
+image = docker_build.Image(
     "ping-service-image",
-    build=docker.DockerBuildArgs(
-        context="ping-service",
-        dockerfile="ping-service/Dockerfile",
-        platform="linux/amd64",
+    push=True,
+    context=docker_build.ContextArgs(
+        location="./ping-service",
     ),
-    image_name=f"australia-southeast1-docker.pkg.dev/{project}/ping-service/ping-service",
-    opts=pulumi.ResourceOptions(depends_on=[registry]),
+    platforms=[docker_build.Platform.LINUX_AMD64],
+    tags=[
+        pulumi.Output.all(
+            registry_name=registry.name, registry_location=registry.location
+        ).apply(
+            lambda args: f"{args['registry_location']}-docker.pkg.dev/{project}/{args['registry_name']}/ping-service"
+        ),
+    ],
 )
 
 data_access = pgcp.storage.BucketIAMBinding(
-    f"read-data",
+    "read-data",
     bucket=bucket,
     members=[service_account.member],
     role="roles/storage.objectViewer",
@@ -78,15 +83,15 @@ data_access = pgcp.storage.BucketIAMBinding(
 
 # Create a Cloud Run service definition.
 service = pgcp.cloudrunv2.Service(
-    f"ping-service",
-    name=f"ping-service",
+    "ping-service",
+    name="ping-service",
     location="australia-southeast1",
     project=project,
     template=pgcp.cloudrunv2.ServiceTemplateArgs(
         service_account=service_account.email,
         containers=[
             pgcp.cloudrunv2.ServiceTemplateContainerArgs(
-                image=image.repo_digest,
+                image=image.ref,
                 envs=[
                     pgcp.cloudrunv2.ServiceTemplateContainerEnvArgs(
                         name="CONFIG_BUCKET", value=bucket.name
@@ -117,7 +122,7 @@ service = pgcp.cloudrunv2.Service(
 
 # Create an IAM member to make the service publicly accessible.
 pgcp.cloudrunv2.ServiceIamBinding(
-    f"invoker-ping-service",
+    "invoker-ping-service",
     name=service.name,
     location="australia-southeast1",
     members=["allUsers"],
