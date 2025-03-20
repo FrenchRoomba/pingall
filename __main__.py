@@ -49,6 +49,9 @@ registry = pgcp.artifactregistry.Repository(
 bucket = pgcp.storage.Bucket(
     "ping-service-config",
     location="australia-southeast1",
+    soft_delete_policy=pgcp.storage.BucketSoftDeletePolicyArgs(
+        retention_duration_seconds=0
+    ),
 )
 data = pgcp.storage.BucketObject(
     "ping-service-config-data",
