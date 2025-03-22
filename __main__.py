@@ -8,7 +8,9 @@ import pulumi
 import pulumi_docker_build as docker_build
 import pulumi_gcp as pgcp
 
-results = {}
+configblob = {}
+urls = {}
+configblob["urls"] = urls
 
 service_account = pgcp.serviceaccount.Account(
     "ping-service-account", account_id="ping-service-account"
@@ -19,10 +21,10 @@ for provider in [gcp, azure, aws, alicloud]:
     deployer = provider.Deployer(calling_service_account=service_account)
     locations = deployer.list_locations()
 
-    results[provider.__name__] = {loc: deployer.make_function(loc) for loc in locations}
+    urls[provider.__name__] = {loc: deployer.make_function(loc) for loc in locations}
     deployer.finish()
 
-pulumi.export("urls", results)
+pulumi.export("urls", urls)
 
 
 gcp_config = pulumi.Config("gcp")
@@ -46,6 +48,15 @@ registry = pgcp.artifactregistry.Repository(
     mode="STANDARD_REPOSITORY",
 )
 
+vms_pulumi_state = pgcp.storage.Bucket(
+    "pingall-vms-pulumi-state",
+    location="australia-southeast1",
+    soft_delete_policy=pgcp.storage.BucketSoftDeletePolicyArgs(
+        retention_duration_seconds=0
+    ),
+)
+configblob["vms_pulumi_state_bucket"] = vms_pulumi_state.url
+
 bucket = pgcp.storage.Bucket(
     "ping-service-config",
     location="australia-southeast1",
@@ -56,7 +67,7 @@ bucket = pgcp.storage.Bucket(
 data = pgcp.storage.BucketObject(
     "ping-service-config-data",
     name="config.json",
-    source=pulumi.Output.json_dumps(results).apply(lambda x: pulumi.StringAsset(x)),
+    source=pulumi.Output.json_dumps(configblob).apply(lambda x: pulumi.StringAsset(x)),
     bucket=bucket,
 )
 
@@ -134,3 +145,4 @@ pgcp.cloudrunv2.ServiceIamBinding(
 
 
 pulumi.export("ping-service-url", service.uri)
+
