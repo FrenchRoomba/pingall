@@ -8,7 +8,11 @@ import pulumi
 import pulumi_docker_build as docker_build
 import pulumi_gcp as pgcp
 
+import vms
+
 results = {}
+
+home_region = "australia-southeast1"
 
 service_account = pgcp.serviceaccount.Account(
     "ping-service-account", account_id="ping-service-account"
@@ -28,6 +32,8 @@ pulumi.export("urls", results)
 gcp_config = pulumi.Config("gcp")
 project = gcp_config.require("project")
 
+vms.do(home_region)
+
 registry = pgcp.artifactregistry.Repository(
     "ping-service-docker",
     format="DOCKER",
@@ -40,7 +46,7 @@ registry = pgcp.artifactregistry.Repository(
             ),
         )
     ],
-    location="australia-southeast1",
+    location=home_region,
     project=project,
     repository_id="ping-service",
     mode="STANDARD_REPOSITORY",
@@ -48,7 +54,7 @@ registry = pgcp.artifactregistry.Repository(
 
 bucket = pgcp.storage.Bucket(
     "ping-service-config",
-    location="australia-southeast1",
+    location=home_region,
     soft_delete_policy=pgcp.storage.BucketSoftDeletePolicyArgs(
         retention_duration_seconds=0
     ),
@@ -88,7 +94,7 @@ data_access = pgcp.storage.BucketIAMBinding(
 service = pgcp.cloudrunv2.Service(
     "ping-service",
     name="ping-service",
-    location="australia-southeast1",
+    location=home_region,
     project=project,
     template=pgcp.cloudrunv2.ServiceTemplateArgs(
         service_account=service_account.email,
@@ -127,7 +133,7 @@ service = pgcp.cloudrunv2.Service(
 pgcp.cloudrunv2.ServiceIamBinding(
     "invoker-ping-service",
     name=service.name,
-    location="australia-southeast1",
+    location=home_region,
     members=["allUsers"],
     role="roles/run.invoker",
 )
