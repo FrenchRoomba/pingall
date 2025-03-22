@@ -158,7 +158,7 @@ requires-dist = [
     { name = "pulumi-aws", specifier = "==6.72.0" },
     { name = "pulumi-azure-native", specifier = "==2.73.0" },
     { name = "pulumi-containerregistry", specifier = "==0.0.14" },
-    { name = "pulumi-docker", specifier = "==4.6.1" },
+    { name = "pulumi-docker", specifier = "==4.6.2" },
     { name = "pulumi-docker-build", specifier = "==0.0.10" },
     { name = "pulumi-gcp", specifier = "==8.22.0" },
     { name = "pulumi-google-native", specifier = "==0.32.0" },
@@ -275,16 +275,16 @@ wheels = [
 
 [[package]]
 name = "pulumi-docker"
-version = "4.6.1"
+version = "4.6.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "parver" },
     { name = "pulumi" },
     { name = "semver" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/06/0a/b7af15174b38eac311185865b8743d6044ff9446a345d8ce37e318004837/pulumi_docker-4.6.1.tar.gz", hash = "sha256:35746f48dda89f5f6916029546482e8172b02dfbd1b86afcdd167c20e60f2f7c", size = 90402 }
+sdist = { url = "https://files.pythonhosted.org/packages/b1/05/0c4646958d828ba9a785b65434bdd81a0ffacf623dfed1bc09f6a68c93b2/pulumi_docker-4.6.2.tar.gz", hash = "sha256:2c996bd2510062824c4b992c56e379cdf928118c0de229b4b6f1c397513b8ea1", size = 90556 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/2f/5d/de604f6161f0b7c5f42c378a714a4eae0c45bebe2ede69ac00f63ebbcaee/pulumi_docker-4.6.1-py3-none-any.whl", hash = "sha256:74e2e7c406eccb728b449dfdc3f91f02ea08a12ec28e4f838e497b6e71eeb435", size = 110159 },
+    { url = "https://files.pythonhosted.org/packages/5f/e9/85822f9982784d8eecfd4a06a985d196c2a478ad32e9e24c7cef91b5ec59/pulumi_docker-4.6.2-py3-none-any.whl", hash = "sha256:f1854aae639624c8cda3d8814dc165b9f303d8181aba86619c6f16afcd553f01", size = 110237 },
 ]
 
 [[package]]
