@@ -4,5 +4,6 @@
   "nix": {
     "enabled": true
   },
+  "rebaseWhen": "behind-base-branch",
   "lockFileMaintenance": { "enabled": true }
 }
