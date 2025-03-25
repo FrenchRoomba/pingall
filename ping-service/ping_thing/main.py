@@ -62,7 +62,7 @@ app.add_middleware(
 storage_client = storage.Client()
 bucket = storage_client.bucket(os.getenv("CONFIG_BUCKET"))
 blob = bucket.blob("config.json")
-urls = json.loads(blob.download_as_text())
+urls = json.loads(blob.download_as_text())["urls"]
 
 
 class LatencyResponse(BaseModel):
