@@ -5,7 +5,7 @@ dependencies = [
     "pulumi==3.169.0",
     "pulumi-gcp==8.29.0",
     "pulumi-google-native==0.32.0",
-    "pulumi-azure-native==2.73.0",
+    "pulumi-azure-native==3.4.0",
     "pulumi-docker==4.6.2",
     "pulumi-aws==6.80.0",
     "pulumi-containerregistry==0.0.14",
