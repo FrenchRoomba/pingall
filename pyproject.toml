@@ -2,17 +2,17 @@
 authors = [{ name = "Rhys Davies", email = "rhys@memes.nz" }]
 requires-python = "<4.0,>=3.11"
 dependencies = [
-    "pulumi==3.163.0",
-    "pulumi-gcp==8.27.0",
+    "pulumi==3.169.0",
+    "pulumi-gcp==8.29.0",
     "pulumi-google-native==0.32.0",
     "pulumi-azure-native==2.73.0",
     "pulumi-docker==4.6.2",
-    "pulumi-aws==6.77.1",
+    "pulumi-aws==6.80.0",
     "pulumi-containerregistry==0.0.14",
-    "pulumi-alicloud==3.76.0",
-    "setuptools==78.1.0",
+    "pulumi-alicloud==3.77.0",
+    "setuptools==80.4.0",
     "pulumi-std==2.2.0",
-    "pip==25.0.1",
+    "pip==25.1.1",
     "pulumi-docker-build==0.0.11",
 ]
 name = "pingall"
