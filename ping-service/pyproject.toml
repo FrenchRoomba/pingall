@@ -2,7 +2,7 @@
 authors = [{ name = "Rhys Davies", email = "rhys@memes.nz" }]
 requires-python = "<4.0,>=3.10"
 dependencies = [
-    "fastapi==0.115.12",
+    "fastapi==0.116.1",
     "uvicorn==0.34.2",
     "aiohttp[speedups]==3.12.15",
     "asyncstdlib==3.13.1",
