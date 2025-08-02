@@ -9,7 +9,7 @@ dependencies = [
     "google-auth==2.40.3",
     "requests==2.32.4",
     "google-cloud-storage==3.2.0",
-    "firebase-admin==6.9.0",
+    "firebase-admin==7.1.0",
     "aioboto3==14.3.0",
 ]
 name = "ping-thing"
