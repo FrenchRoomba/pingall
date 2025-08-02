@@ -81,7 +81,7 @@ class Deployer:
 
         role = alicloud.ram.Role(
             f"pingerFunctionRole-{location}",
-            document=json.dumps(
+            assume_role_policy_document=json.dumps(
                 {
                     "Version": "1",
                     "Statement": [
