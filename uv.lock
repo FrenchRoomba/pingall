@@ -1,5 +1,5 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = ">=3.11, <4.0"
 
 [[package]]
@@ -122,7 +122,7 @@ requires-dist = [
     { name = "pip", specifier = "==25.1.1" },
     { name = "pulumi", specifier = "==3.186.0" },
     { name = "pulumi-alicloud", specifier = "==3.83.0" },
-    { name = "pulumi-aws", specifier = "==6.83.0" },
+    { name = "pulumi-aws", specifier = "==7.2.0" },
     { name = "pulumi-azure-native", specifier = "==2.73.0" },
     { name = "pulumi-containerregistry", specifier = "==0.0.14" },
     { name = "pulumi-docker", specifier = "==4.6.2" },
@@ -189,16 +189,16 @@ wheels = [
 
 [[package]]
 name = "pulumi-aws"
-version = "6.83.0"
+version = "7.2.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "parver" },
     { name = "pulumi" },
     { name = "semver" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/ef/c8/d16a58afdab5c4dafb8043a4370c0673c48ae314aea5ac7d1ce4eee2af76/pulumi_aws-6.83.0.tar.gz", hash = "sha256:24ce88ad5bb81eb937935d9e40466e164addef86140a32cac22ed17176812cb7", size = 7839650, upload-time = "2025-06-16T21:58:19.009Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/63/99/049dba0cacabc3a75a8e183241ad1d050832ffec464649eac48378f94875/pulumi_aws-7.2.0.tar.gz", hash = "sha256:9d2e6e9e420d5563f2a3dc975d546968b3d745f1e76a744ea6c08e106fbaf62c", size = 8009236, upload-time = "2025-07-31T23:30:17.169Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/30/0b/3ed17e6fc68d9c0b572c4b259c5e291a8267011c640a9a9bb5a26b596763/pulumi_aws-6.83.0-py3-none-any.whl", hash = "sha256:e61144b9680ae1ebd98daa7bfffce1f646796a9640f9b73119b91e72c26e3bbc", size = 10608060, upload-time = "2025-06-16T21:58:14.969Z" },
+    { url = "https://files.pythonhosted.org/packages/c2/71/d193f2dc37361dc8baef20101786774b1d7467209a08627537630b230d0a/pulumi_aws-7.2.0-py3-none-any.whl", hash = "sha256:f63838776c8afdd70568569704b6f9397c74a6cf7e44f713aa9a55182bc0213c", size = 10886044, upload-time = "2025-07-31T23:30:13.617Z" },
 ]
 
 [[package]]
