@@ -44,10 +44,7 @@ class Deployer:
             ),
         )
 
-    def make_function(self, location):
-        provider = aws.Provider(f"aws-{location}", region=location)
-        opts = pulumi.ResourceOptions(provider=provider)
-
+    def make_function(self, location: str):
         role = aws.iam.Role(
             f"pingerLambdaRole-{location}",
             assume_role_policy=json.dumps(
@@ -69,7 +66,7 @@ class Deployer:
             code=pulumi.FileArchive(nixdeps["aws.adapter-archive"]),
             layer_name="lambda_adapter_layer",
             compatible_runtimes=["provided.al2023"],
-            opts=opts,
+            region=location,
         )
 
         lambda_ = aws.lambda_.Function(
@@ -82,7 +79,7 @@ class Deployer:
             environment=aws.lambda_.FunctionEnvironmentArgs(
                 variables={"AWS_LAMBDA_EXEC_WRAPPER": "/opt/bootstrap"}
             ),
-            opts=opts,
+            region=location,
         )
 
         lambda_logging = aws.iam.Policy(
@@ -130,14 +127,14 @@ class Deployer:
                 endpoint_configuration=aws.apigateway.RestApiEndpointConfigurationArgs(
                     types="REGIONAL"
                 ),
-                opts=opts,
+                region=location,
             )
             resource = aws.apigateway.Resource(
                 f"resource-{location}",
                 rest_api=apigw.id,
                 parent_id=apigw.root_resource_id,
                 path_part="{proxy+}",
-                opts=opts,
+                region=location,
             )
             method = aws.apigateway.Method(
                 f"method-{location}",
@@ -145,7 +142,7 @@ class Deployer:
                 resource_id=resource.id,
                 http_method="ANY",
                 authorization="AWS_IAM",
-                opts=opts,
+                region=location,
             )
             integration = aws.apigateway.Integration(
                 f"integration-{location}",
@@ -155,7 +152,7 @@ class Deployer:
                 type="AWS_PROXY",
                 integration_http_method="POST",
                 uri=lambda_.invoke_arn,
-                opts=opts,
+                region=location,
             )
             method_root = aws.apigateway.Method(
                 f"method-root-{location}",
@@ -163,7 +160,7 @@ class Deployer:
                 resource_id=apigw.root_resource_id,
                 http_method="ANY",
                 authorization="AWS_IAM",
-                opts=opts,
+                region=location,
             )
             integration_root = aws.apigateway.Integration(
                 f"integration-root-{location}",
@@ -173,7 +170,7 @@ class Deployer:
                 type="AWS_PROXY",
                 integration_http_method="POST",
                 uri=lambda_.invoke_arn,
-                opts=opts,
+                region=location,
             )
             deployment = aws.apigateway.Deployment(
                 f"deployment-{location}",
@@ -191,14 +188,14 @@ class Deployer:
                         )
                     ).apply(lambda invoke: invoke.result),
                 },
-                opts=opts,
+                region=location,
             )
             stage = aws.apigateway.Stage(
                 f"stage-{location}",
                 stage_name="test",
                 deployment=deployment.id,
                 rest_api=apigw.id,
-                opts=opts,
+                region=location,
             )
             aws.lambda_.Permission(
                 f"allowApiGateway-{location}",
@@ -207,7 +204,7 @@ class Deployer:
                 function=lambda_.name,
                 principal="apigateway.amazonaws.com",
                 source_arn=pulumi.Output.format("{0}/*/*", apigw.execution_arn),
-                opts=opts,
+                region=location,
             )
             url = stage.invoke_url
             self.apigws.append(apigw)
@@ -216,16 +213,16 @@ class Deployer:
                 f"woof-{location}",
                 function_name=lambda_.arn,
                 authorization_type="AWS_IAM",
-                opts=opts,
+                region=location,
             ).function_url
             self.lambdas.append(lambda_)
         return url
 
     def finish(self):
         invoke_policy = aws.iam.Policy(
-            f"lambdaInvoke",
+            "lambdaInvoke",
             path="/",
-            description=f"IAM policy for invoking the pinger lambda",
+            description="IAM policy for invoking the pinger lambda",
             policy=pulumi.Output.json_dumps(
                 {
                     "Version": "2012-10-17",
@@ -247,7 +244,7 @@ class Deployer:
             ),
         )
         aws.iam.RolePolicyAttachment(
-            f"lambdaInvokeAttach",
+            "lambdaInvokeAttach",
             role=self.ping_service_role.name,
             policy_arn=invoke_policy.arn,
         )
