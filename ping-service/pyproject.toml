@@ -7,7 +7,7 @@ dependencies = [
     "aiohttp[speedups]==3.12.15",
     "asyncstdlib==3.13.1",
     "google-auth==2.40.3",
-    "requests==2.32.4",
+    "requests==2.32.5",
     "google-cloud-storage==3.3.0",
     "firebase-admin==7.1.0",
     "aioboto3==15.0.0",
