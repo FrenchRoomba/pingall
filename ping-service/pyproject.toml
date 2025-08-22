@@ -10,7 +10,7 @@ dependencies = [
     "requests==2.32.5",
     "google-cloud-storage==3.3.0",
     "firebase-admin==7.1.0",
-    "aioboto3==15.0.0",
+    "aioboto3==15.1.0",
 ]
 name = "ping-thing"
 version = "0.1.0"
