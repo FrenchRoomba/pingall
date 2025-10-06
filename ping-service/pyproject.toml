@@ -3,14 +3,16 @@ authors = [{ name = "Rhys Davies", email = "rhys@memes.nz" }]
 requires-python = "<4.0,>=3.10"
 dependencies = [
     "fastapi==0.116.2",
-    "uvicorn==0.35.0",
+    "uvicorn==0.37.0",
     "aiohttp[speedups]==3.12.15",
     "asyncstdlib==3.13.1",
     "google-auth==2.40.3",
     "requests==2.32.5",
     "google-cloud-storage==3.4.0",
-    "firebase-admin==7.1.0",
-    "aioboto3==15.1.0",
+    "aioboto3==15.2.0",
+    "pyjwt>=2.10.1",
+    "async-cache>=1.1.1",
+    "cryptography>=46.0.2",
 ]
 name = "ping-thing"
 version = "0.1.0"
