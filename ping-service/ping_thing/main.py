@@ -7,21 +7,45 @@ import aioboto3
 import aiohttp
 import google.auth.transport._aiohttp_requests
 import google.oauth2._id_token_async
+import jwt
+
 from botocore import auth, awsrequest
 from botocore.credentials import Credentials
 from fastapi import Depends, FastAPI, HTTPException, Response, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
-from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer, OAuth2
-from firebase_admin import auth as firebase_auth
-from firebase_admin import initialize_app
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from google.cloud import storage
 from pydantic import BaseModel
+from cache import AsyncTTL
 
 aws = aioboto3.Session()
 
+# The Application Audience (AUD) tag for your application
+POLICY_AUD = os.getenv("POLICY_AUD")
 
-def get_user_token(
+# Your CF Access team domain
+TEAM_DOMAIN = os.getenv("TEAM_DOMAIN")
+CERTS_URL = "{}/cdn-cgi/access/certs".format(TEAM_DOMAIN)
+
+
+@AsyncTTL(time_to_live=3600, maxsize=1024)
+async def _get_public_keys():
+    """
+    Returns:
+        List of RSA public keys usable by PyJWT.
+    """
+    async with aiohttp.ClientSession() as session:
+        async with session.get(CERTS_URL) as resp:
+            jwk_set = await resp.json()
+    public_keys = []
+    for key_dict in jwk_set["keys"]:
+        public_key = jwt.PyJWK.from_json(json.dumps(key_dict))
+        public_keys.append(public_key)
+    return public_keys
+
+
+async def get_user_token(
     res: Response,
     credential: HTTPAuthorizationCredentials = Depends(HTTPBearer(auto_error=False)),
 ):
@@ -31,19 +55,30 @@ def get_user_token(
             detail="Bearer authentication is needed",
             headers={"WWW-Authenticate": 'Bearer realm="auth_required"'},
         )
-    try:
-        decoded_token = firebase_auth.verify_id_token(credential.credentials)
-    except Exception as err:
+    keys = await _get_public_keys()
+    valid_token = False
+    for key in keys:
+        try:
+            # decode returns the claims that has the email when needed
+            decoded_token = jwt.decode(
+                credential.credentials,
+                key=key,
+                audience=POLICY_AUD,
+                algorithms=["RS256"],
+            )
+            valid_token = True
+            break
+        except jwt.exceptions.InvalidTokenError:
+            pass
+    if not valid_token:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail=f"Invalid authentication from Firebase. {err}",
+            detail="Invalid JWT",
             headers={"WWW-Authenticate": 'Bearer error="invalid_token"'},
         )
     res.headers["WWW-Authenticate"] = 'Bearer realm="auth_required"'
     return decoded_token
 
-
-initialize_app()
 
 app = FastAPI()
 

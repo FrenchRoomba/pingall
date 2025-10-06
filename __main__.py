@@ -109,7 +109,15 @@ service = pgcp.cloudrunv2.Service(
                 envs=[
                     pgcp.cloudrunv2.ServiceTemplateContainerEnvArgs(
                         name="CONFIG_BUCKET", value=bucket.name
-                    )
+                    ),
+                    pgcp.cloudrunv2.ServiceTemplateContainerEnvArgs(
+                        name="POLICY_AUD",
+                        value="0d6a8952d54aaf9b4e330e15423784f6dc20e268d0d9d7c7a65121df38d7344b",
+                    ),
+                    pgcp.cloudrunv2.ServiceTemplateContainerEnvArgs(
+                        name="TEAM_DOMAIN",
+                        value="http://frenchroomba.cloudflareaccess.com",
+                    ),
                 ],
                 resources=pgcp.cloudrunv2.ServiceTemplateContainerResourcesArgs(
                     limits=dict(
@@ -145,4 +153,3 @@ pgcp.cloudrunv2.ServiceIamBinding(
 
 
 pulumi.export("ping-service-url", service.uri)
-
