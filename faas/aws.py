@@ -230,6 +230,7 @@ class Deployer:
                         {
                             "Action": [
                                 "execute-api:Invoke",
+                                "lambda:InvokeFunction",
                                 "lambda:InvokeFunctionUrl",
                             ],
                             "Effect": "Allow",
