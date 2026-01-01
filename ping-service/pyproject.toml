@@ -6,7 +6,7 @@ dependencies = [
     "uvicorn==0.37.0",
     "aiohttp[speedups]==3.13.2",
     "asyncstdlib==3.13.1",
-    "google-auth==2.41.1",
+    "google-auth==2.45.0",
     "requests==2.32.5",
     "google-cloud-storage==3.4.1",
     "aioboto3==15.5.0",
