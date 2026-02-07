@@ -153,7 +153,7 @@ requires-dist = [
     { name = "pulumi-docker-build", specifier = "==0.0.15" },
     { name = "pulumi-gcp", specifier = "==9.11.0" },
     { name = "pulumi-google-native", specifier = "==0.32.0" },
-    { name = "pulumi-std", specifier = "==2.2.0" },
+    { name = "pulumi-std", specifier = "==2.3.1" },
     { name = "setuptools", specifier = "==80.10.2" },
 ]
 
@@ -311,14 +311,17 @@ wheels = [
 
 [[package]]
 name = "pulumi-std"
-version = "2.2.0"
+version = "2.3.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "parver" },
     { name = "pulumi" },
     { name = "semver" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/95/f1/1623662490d001ead46064cd25475d9732a1ada974d9c5c92af11616e4c2/pulumi_std-2.2.0.tar.gz", hash = "sha256:e46759862b5068f26ff4c2252a9c9e9c720e6ea55ae58ac7b83d0bf7a9ac25bb", size = 25811, upload-time = "2025-02-13T17:30:16.232Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/86/b0/8d88cbd7401262df95fc05049ebb5b37b14e2f403d8ebe790282524a1f22/pulumi_std-2.3.1.tar.gz", hash = "sha256:221af84c48641093dc77364111506a5ca6296175dde0fe4839cb20f5ddc73ba0", size = 26553, upload-time = "2026-02-06T00:51:32.233Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/52/31/976675164a41bc64c82bca3e9194142a894b486b62e45004920cb005d4e7/pulumi_std-2.3.1-py3-none-any.whl", hash = "sha256:4d67ac909d764c11b9bee0a98f3a94cb021c6655481d9977f26d4b44bf576aac", size = 110960, upload-time = "2026-02-06T00:51:31.21Z" },
+]
 
 [[package]]
 name = "pyyaml"
