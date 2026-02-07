@@ -10,7 +10,7 @@ dependencies = [
     "pulumi-aws==7.19.0",
     "pulumi-containerregistry==0.0.14",
     "pulumi-alicloud==3.94.0",
-    "setuptools==80.10.2",
+    "setuptools==81.0.0",
     "pulumi-std==2.2.0",
     "pip==25.3",
     "pulumi-docker-build==0.0.15",
