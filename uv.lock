@@ -145,7 +145,7 @@ dependencies = [
 requires-dist = [
     { name = "pip", specifier = "==26.0" },
     { name = "pulumi", specifier = "==3.220.0" },
-    { name = "pulumi-alicloud", specifier = "==3.94.0" },
+    { name = "pulumi-alicloud", specifier = "==3.95.0" },
     { name = "pulumi-aws", specifier = "==7.19.0" },
     { name = "pulumi-azure-native", specifier = "==2.73.0" },
     { name = "pulumi-containerregistry", specifier = "==0.0.14" },
@@ -199,16 +199,16 @@ wheels = [
 
 [[package]]
 name = "pulumi-alicloud"
-version = "3.94.0"
+version = "3.95.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "parver" },
     { name = "pulumi" },
     { name = "semver" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/50/62/02402280c3bfd476858afba6f2ea7d5711e4ecbb58b5dc76064ca1599943/pulumi_alicloud-3.94.0.tar.gz", hash = "sha256:71aab3607baeea4da6678e605206d11caae13605469a8b802ee82590062d2aea", size = 5449421, upload-time = "2026-02-03T05:01:02.941Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/53/2e/90720dec42dfb29c51f93094949cdb1b561eab4c26178b81155165566197/pulumi_alicloud-3.95.0.tar.gz", hash = "sha256:429f95c7b59dd3d8fa197af03d1377d7963e08c15a63870e526a59c2d0268d87", size = 5471260, upload-time = "2026-02-12T05:09:33.228Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/68/94/c5d57a3df53440b023a1d1fa4beb365e68988dbe3c9f582faf5cef221aca/pulumi_alicloud-3.94.0-py3-none-any.whl", hash = "sha256:e2ec48d73b9e0beb58115d4891f4ac6089f1be90aeefec6a361141617f521778", size = 7898816, upload-time = "2026-02-03T05:01:00.367Z" },
+    { url = "https://files.pythonhosted.org/packages/8d/97/50558a21fe857c07876d7bb92f7f05bc6fb6a15c3019ebfb2840f70d6455/pulumi_alicloud-3.95.0-py3-none-any.whl", hash = "sha256:1700229253a6a17cf31facb8fb55d64dce72584b2f5221565641c3483280533a", size = 7931123, upload-time = "2026-02-12T05:09:31.357Z" },
 ]
 
 [[package]]
