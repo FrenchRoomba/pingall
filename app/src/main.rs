@@ -1,10 +1,10 @@
+use reqwest::Certificate;
 use serde::Deserialize;
 use std::net::ToSocketAddrs;
 use std::time::Duration;
-use std::{collections::HashMap, env, time::Instant};
+use std::{env, time::Instant};
 use warp::{
-    http::{Response, StatusCode},
-    reject::{self, Reject},
+    reject::{self},
     Filter, Rejection, Reply,
 };
 
@@ -56,6 +56,16 @@ fn port() -> u16 {
     }
 }
 
+fn create_client_with_webpki_certs() -> Result<reqwest::Client, Box<dyn std::error::Error>> {
+    let certs: Vec<Certificate> = webpki_root_certs::TLS_SERVER_ROOT_CERTS
+        .iter()
+        .map(|cert_der| Certificate::from_der(cert_der))
+        .collect::<Result<Vec<_>, _>>()?;
+    let client = reqwest::Client::builder().tls_certs_only(certs).build()?;
+
+    Ok(client)
+}
+
 #[derive(Deserialize)]
 pub struct URLQuery {
     url: String,
@@ -85,7 +95,10 @@ pub async fn fetch_url(query: URLQuery) -> Result<impl Reply, Rejection> {
         Ok(format!("{:}", duration.as_millis()))
     } else {
         let start = Instant::now();
-        let response = reqwest::get(query.url)
+        let client = create_client_with_webpki_certs().unwrap();
+        let response = client
+            .get(query.url)
+            .send()
             .await
             .map_err(|e| reject::custom(Error::ReqwestError(e)))?;
         response.status();
