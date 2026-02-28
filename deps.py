@@ -13,11 +13,15 @@ depNames = [
 
 pulumi.info("Loading nix dependencies...")
 
+nix_env = os.environ.copy()
+nix_env["NIXPKGS_ALLOW_UNFREE"] = "1"
+
 drvs = (
     subprocess.run(
         [
             "nix",
             "build",
+            "--impure",
             "--print-out-paths",
             "--system",
             "x86_64-linux",
@@ -26,6 +30,7 @@ drvs = (
             ([f"{os.path.dirname(os.path.realpath(__file__))}#{x}"] for x in depNames),
             [],
         ),
+        env=nix_env,
         check=True,
         stdout=subprocess.PIPE,
     )
