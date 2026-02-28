@@ -27,6 +27,8 @@ jobs:
           name: frenchroomba
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
       - name: Nix build
+        env:
+          NIXPKGS_ALLOW_UNFREE: 1
         run: nix build --impure .#gcp.image .#azure.archive .#aws.archive .#aws.adapter-archive .#alicloud.archive
       - uses: "google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093" # v3
         with:
