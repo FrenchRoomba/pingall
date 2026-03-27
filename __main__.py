@@ -8,9 +8,11 @@ import pulumi
 import pulumi_docker_build as docker_build
 import pulumi_gcp as pgcp
 
-configblob = {}
-urls = {}
-configblob["urls"] = urls
+import vms
+
+results = {}
+
+home_region = "australia-southeast1"
 
 service_account = pgcp.serviceaccount.Account(
     "ping-service-account", account_id="ping-service-account"
@@ -21,14 +23,16 @@ for provider in [gcp, azure, aws, alicloud]:
     deployer = provider.Deployer(calling_service_account=service_account)
     locations = deployer.list_locations()
 
-    urls[provider.__name__] = {loc: deployer.make_function(loc) for loc in locations}
+    results[provider.__name__] = {loc: deployer.make_function(loc) for loc in locations}
     deployer.finish()
 
-pulumi.export("urls", urls)
+pulumi.export("urls", results)
 
 
 gcp_config = pulumi.Config("gcp")
 project = gcp_config.require("project")
+
+vms.do(home_region)
 
 registry = pgcp.artifactregistry.Repository(
     "ping-service-docker",
@@ -42,24 +46,15 @@ registry = pgcp.artifactregistry.Repository(
             ),
         )
     ],
-    location="australia-southeast1",
+    location=home_region,
     project=project,
     repository_id="ping-service",
     mode="STANDARD_REPOSITORY",
 )
 
-vms_pulumi_state = pgcp.storage.Bucket(
-    "pingall-vms-pulumi-state",
-    location="australia-southeast1",
-    soft_delete_policy=pgcp.storage.BucketSoftDeletePolicyArgs(
-        retention_duration_seconds=0
-    ),
-)
-configblob["vms_pulumi_state_bucket"] = vms_pulumi_state.url
-
 bucket = pgcp.storage.Bucket(
     "ping-service-config",
-    location="australia-southeast1",
+    location=home_region,
     soft_delete_policy=pgcp.storage.BucketSoftDeletePolicyArgs(
         retention_duration_seconds=0
     ),
@@ -67,7 +62,7 @@ bucket = pgcp.storage.Bucket(
 data = pgcp.storage.BucketObject(
     "ping-service-config-data",
     name="config.json",
-    source=pulumi.Output.json_dumps(configblob).apply(lambda x: pulumi.StringAsset(x)),
+    source=pulumi.Output.json_dumps(results).apply(lambda x: pulumi.StringAsset(x)),
     bucket=bucket,
 )
 
@@ -99,7 +94,7 @@ data_access = pgcp.storage.BucketIAMBinding(
 service = pgcp.cloudrunv2.Service(
     "ping-service",
     name="ping-service",
-    location="australia-southeast1",
+    location=home_region,
     project=project,
     template=pgcp.cloudrunv2.ServiceTemplateArgs(
         service_account=service_account.email,
@@ -146,7 +141,7 @@ service = pgcp.cloudrunv2.Service(
 pgcp.cloudrunv2.ServiceIamBinding(
     "invoker-ping-service",
     name=service.name,
-    location="australia-southeast1",
+    location=home_region,
     members=["allUsers"],
     role="roles/run.invoker",
 )
