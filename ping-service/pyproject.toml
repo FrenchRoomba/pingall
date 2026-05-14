@@ -4,7 +4,7 @@ requires-python = "<4.0,>=3.10"
 dependencies = [
     "fastapi==0.136.1",
     "uvicorn==0.41.0",
-    "aiohttp[speedups]==3.13.3",
+    "aiohttp[speedups]==3.13.4",
     "asyncstdlib==3.13.1",
     "google-auth==2.48.0",
     "requests==2.33.0",
