@@ -18,7 +18,7 @@ jobs:
           enable-cache: true
       - name: python deps
         run: uv sync --frozen
-      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/nix-installer-action@00199f951aeb9404028a6e4b95ad42546f73296a # main
       - uses: cachix/cachix-action@3ba601ff5bbb07c7220846facfa2cd81eeee15a1 # v16
         with:
           name: frenchroomba
