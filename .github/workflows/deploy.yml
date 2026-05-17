@@ -47,7 +47,7 @@ jobs:
           export-environment-variables: true
       - name: gcloud docker auth
         run: gcloud auth configure-docker --quiet $(gcloud artifacts locations list --flatten name --format json | jq -r '[.[] + "-docker.pkg.dev"] | join(",")')
-      - uses: pulumi/actions@8582a9e8cc630786854029b4e09281acd6794b58 # v6.6.1
+      - uses: pulumi/actions@8e5e406f4007fca908480587cb9893c07090f58d # v7.0.0
         with:
           command: up
           stack-name: dev
