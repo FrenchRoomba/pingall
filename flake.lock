@@ -3,16 +3,16 @@
     "aws-lambda-web-adapter-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1745337631,
-        "narHash": "sha256-1JMobCnlPTiX+UGiaa3RQdbL2JHdnSMfWr9cJiG2O9s=",
+        "lastModified": 1780008520,
+        "narHash": "sha256-VOqWgK8wcQ8cbSB7TrarDf4i5cJXcmnG+Zh5YfcFd4Q=",
         "owner": "awslabs",
         "repo": "aws-lambda-web-adapter",
-        "rev": "7d775b5e96421115b2e21fc1f570d7346fb99b9b",
+        "rev": "dae48cbe1c2c90607df64e61e223f71710e8b894",
         "type": "github"
       },
       "original": {
         "owner": "awslabs",
-        "ref": "v0.9.1",
+        "ref": "v1.0.1",
         "repo": "aws-lambda-web-adapter",
         "type": "github"
       }
