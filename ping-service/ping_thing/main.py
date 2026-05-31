@@ -29,7 +29,6 @@ TEAM_DOMAIN = os.getenv("TEAM_DOMAIN")
 CERTS_URL = "{}/cdn-cgi/access/certs".format(TEAM_DOMAIN)
 
 
-@AsyncTTL(time_to_live=3600, maxsize=1024)
 async def _get_public_keys():
     """
     Returns:
