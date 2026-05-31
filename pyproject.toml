@@ -13,7 +13,7 @@ dependencies = [
     "setuptools==82.0.1",
     "pulumi-std==2.3.2",
     "pip==26.1.1",
-    "pulumi-docker-build==0.0.17",
+    "pulumi-docker-build==0.0.18",
 ]
 name = "pingall"
 version = "0.1.0"
