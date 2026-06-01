@@ -84,7 +84,7 @@ class Deployer:
             kind=azure.storage.Kind.STORAGE_V2,
             location=location,
             allow_blob_public_access=False,
-            allow_shared_key_access=False,
+            allow_shared_key_access=True,
             minimum_tls_version=azure.storage.MinimumTlsVersion.TLS1_2,
         )
 
