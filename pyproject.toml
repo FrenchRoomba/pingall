@@ -8,7 +8,7 @@ dependencies = [
     "pulumi-azure-native==3.19.0",
     "pulumi-docker==5.0.0",
     "pulumi-aws==7.32.0",
-    "pulumi-containerregistry==0.0.14",
+    "pulumi-containerregistry==0.0.18",
     "pulumi-alicloud==3.103.0",
     "setuptools==82.0.1",
     "pulumi-std==2.3.2",
