@@ -262,7 +262,7 @@ requires-dist = [
     { name = "pulumi-containerregistry", specifier = "==0.0.14" },
     { name = "pulumi-docker", specifier = "==5.0.0" },
     { name = "pulumi-docker-build", specifier = "==0.0.18" },
-    { name = "pulumi-gcp", specifier = "==9.25.0" },
+    { name = "pulumi-gcp", specifier = "==9.28.0" },
     { name = "pulumi-google-native", specifier = "==0.32.0" },
     { name = "pulumi-std", specifier = "==2.3.2" },
     { name = "setuptools", specifier = "==82.0.1" },
@@ -399,16 +399,16 @@ wheels = [
 
 [[package]]
 name = "pulumi-gcp"
-version = "9.25.0"
+version = "9.28.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "parver" },
     { name = "pulumi" },
     { name = "semver" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/a3/4c/ade58e37935bd4ce1228bd3a10dbef3989652409ffd49aebe4b2d7f53c11/pulumi_gcp-9.25.0.tar.gz", hash = "sha256:2a6b7d18dff0dce5a5cc7d4be1c69226d4bd66f14211779854b23d26fbea2f57", size = 10439810, upload-time = "2026-05-22T14:58:52.498Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/b5/68/c961e53d707da7fc2f03d108b3fe406d446f780b2c9415039b56ab83439f/pulumi_gcp-9.28.0.tar.gz", hash = "sha256:41fc2954093256be5e7c72b82081407d4681b5dcaaf40b4ce2498076c4a3814b", size = 10761184, upload-time = "2026-06-22T22:23:10.853Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/4e/30/407e49a62768b7c65c43ba3c406ccae244fbf2bc6d513b4cc62ba5a2e3e2/pulumi_gcp-9.25.0-py3-none-any.whl", hash = "sha256:102dc97d3f2c59fc4fb85de8c43568c07bd23abe1c1f2e46060d09e5f6663faf", size = 12788530, upload-time = "2026-05-22T14:58:48.87Z" },
+    { url = "https://files.pythonhosted.org/packages/3c/0b/e925420230d8392f808356ea8db932c1da180a12c9bfc4993c3da225d893/pulumi_gcp-9.28.0-py3-none-any.whl", hash = "sha256:ea6e2a11110005da09b1fb6815608bc639767df7afe22f09e1ce3f38382556f5", size = 13178907, upload-time = "2026-06-22T22:23:08.043Z" },
 ]
 
 [[package]]
