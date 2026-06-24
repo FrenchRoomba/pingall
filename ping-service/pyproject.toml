@@ -8,7 +8,7 @@ dependencies = [
     "asyncstdlib==3.14.0",
     "google-auth==2.55.0",
     "requests==2.34.2",
-    "google-cloud-storage==3.11.0",
+    "google-cloud-storage==3.12.0",
     "aioboto3==15.5.0",
     "pyjwt>=2.10.1",
     "async-cache>=1.1.1",
