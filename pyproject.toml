@@ -6,7 +6,7 @@ dependencies = [
     "pulumi-gcp==9.28.0",
     "pulumi-google-native==0.32.0",
     "pulumi-azure-native==3.19.0",
-    "pulumi-docker==5.0.0",
+    "pulumi-docker==5.1.0",
     "pulumi-aws==7.34.0",
     "pulumi-containerregistry==0.0.14",
     "pulumi-alicloud==3.103.0",
