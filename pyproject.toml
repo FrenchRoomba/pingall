@@ -3,7 +3,7 @@ authors = [{ name = "Rhys Davies", email = "rhys@memes.nz" }]
 requires-python = "<4.0,>=3.11"
 dependencies = [
     "pulumi==3.248.0",
-    "pulumi-gcp==9.28.0",
+    "pulumi-gcp==9.29.0",
     "pulumi-google-native==0.32.0",
     "pulumi-azure-native==3.19.0",
     "pulumi-docker==5.1.0",
