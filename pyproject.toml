@@ -12,7 +12,7 @@ dependencies = [
     "pulumi-alicloud==3.104.0",
     "setuptools==83.0.0",
     "pulumi-std==2.3.2",
-    "pip==26.2",
+    "pip==26.2.1",
     "pulumi-docker-build==0.0.22",
 ]
 name = "pingall"
