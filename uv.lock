@@ -286,7 +286,7 @@ requires-dist = [
     { name = "pulumi-alicloud", specifier = "==3.109.1" },
     { name = "pulumi-aws", specifier = "==7.51.1" },
     { name = "pulumi-azure-native", specifier = "==3.19.0" },
-    { name = "pulumi-containerregistry", specifier = "==0.0.14" },
+    { name = "pulumi-containerregistry", specifier = "==0.0.20" },
     { name = "pulumi-docker", specifier = "==5.1.0" },
     { name = "pulumi-docker-build", specifier = "==0.0.22" },
     { name = "pulumi-gcp", specifier = "==9.29.0" },
@@ -385,16 +385,16 @@ wheels = [
 
 [[package]]
 name = "pulumi-containerregistry"
-version = "0.0.14"
+version = "0.0.20"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "parver" },
+    { name = "packaging" },
     { name = "pulumi" },
     { name = "semver" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/3c/b3/340fa674650db1909ff2a9edb01747173b95f5fbedde9e3395415cc824e3/pulumi_containerregistry-0.0.14.tar.gz", hash = "sha256:09d73a8eb2e01f240c7372dd606c1d2850fe89029f23558a3bd44d7a7863b99c", size = 19766, upload-time = "2024-03-10T00:09:08.034Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/6c/72/d0d4e9180a4d01a2099e712154b85fc4b69d5b0a56337ae326c684998c3f/pulumi_containerregistry-0.0.20.tar.gz", hash = "sha256:502df02390579df179b169e7fba3b6ca7401cf717c61c0cdaa6657893ad1d776", size = 8509, upload-time = "2026-10-20T07:55:59.715Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/95/16/9eba98aea4d63ad3b4413eced0dd03b9f304b85741c68bf501a0cb77ea96/pulumi_containerregistry-0.0.14-py3-none-any.whl", hash = "sha256:3ab1fd0fa43a7a537681841d552e0b69571d0ff6d75374d31806bfcb4168b9b2", size = 15299, upload-time = "2024-03-10T00:09:05.817Z" },
+    { url = "https://files.pythonhosted.org/packages/d4/9b/75f628afe006fb11dea9e9c5e3edfe516f66a1ff2ebf1f3af1fd65a39b32/pulumi_containerregistry-0.0.20-py3-none-any.whl", hash = "sha256:fd5ff83f7af1cbcd41759438521e8cf506841396b93b6aef3a183ab71bab9ef6", size = 10148, upload-time = "2026-10-20T07:55:58.792Z" },
 ]
 
 [[package]]
