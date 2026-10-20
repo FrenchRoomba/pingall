@@ -1,4 +1,4 @@
-FROM python:3.14-slim AS builder
+FROM python:3.15-slim AS builder
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 RUN apt-get update && apt-get install build-essential -y
@@ -22,7 +22,7 @@ RUN --mount=from=ghcr.io/astral-sh/uv,source=/uv,target=/bin/uv \
     uv sync --frozen --no-editable --compile-bytecode
 
 
-FROM python:3.14-slim
+FROM python:3.15-slim
 
 COPY --from=builder /app/.venv /app/.venv
 
